@@ -1,1 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/hacker-news.iml
+.idea/inspectionProfiles/
+.idea/modules.xml
+.idea/workspace.xml
+dist/
+node_modules/

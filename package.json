@@ -1,0 +1,59 @@
+{
+  "name": "hacker-news",
+  "version": "1.0.0",
+  "description": "React + TypeScript demonstration",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config ./webpack.config.js",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "pretest": "npm run lint",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nagafono/hacker-news.git"
+  },
+  "author": "Nikolai Agafonov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nagafono/hacker-news/issues"
+  },
+  "homepage": "https://github.com/nagafono/hacker-news#readme",
+  "dependencies": {
+    "@types/node": "^9.3.0",
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.8.4",
+    "@types/react-addons-test-utils": "^0.14.20",
+    "awesome-typescript-loader": "^3.4.1",
+    "css-loader": "^0.28.8",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "jest": "^22.1.1",
+    "node-sass": "^4.5.3",
+    "react-addons-test-utils": "^15.6.2",
+    "react-promise": "^2.0.0",
+    "sass-loader": "^6.0.6",
+    "source-map-loader": "^0.2.3",
+    "style-loader": "^0.19.1",
+    "ts-jest": "^22.0.1",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.4.2",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/__tests__/.*\\.(ts|tsx|js)$"
+  }
+}

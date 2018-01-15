@@ -1,0 +1,35 @@
+$mainColor: #9F92E5;
+$secondaryColor: #383352;
+body {
+  background: $secondaryColor;
+  width: 1200px;
+  margin: 0 auto;
+  font-family: Verdana, serif;
+}
+
+#news article,
+#news .error {
+  background: $mainColor;
+  padding: 15px 40px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+#news footer {
+  margin-top: 20px;
+}
+
+#news footer h3 {
+  margin: 5px 0;
+}
+
+#news footer .comment {
+  margin: 10px 0;
+}
+
+#news footer em {
+  font-weight: bold;
+}
+#news footer p {
+  margin: 0;
+}

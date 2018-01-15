@@ -1,0 +1,53 @@
+[
+  {
+    "id": 0,
+    "user": "Matti Papa",
+    "rating": 2,
+    "title": "Git Involved in Open Source",
+    "content": "Many developers are not only great problem solvers, they also excel at sharing code. Their roles often lead them on journeys where they have to fill a gap, create a widget or simply build a better mousetrap. It's part of the continual evolution of our industry. And lately, developers are sharing more libraries and code than ever. Several factors have contributed to the sharing trend. Foremost is the innate desire in many developers to spread the good news when they've solved a problem.",
+    "comments": [
+      {
+        "user": "John",
+        "comment": "I smell plagiarism"
+      },
+      {
+        "user": "Gitman",
+        "comment": "Does anybody still use SVN?"
+      },
+      {
+        "user": "Marc",
+        "comment": "@Gitman, I use Mercurial!"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "user": "Mr. Hacker",
+    "rating": 4,
+    "title": "Parity Hack And Impact On Ethereum Blockchain",
+    "content": "In November 7, a vulnerability in the Parity wallet contract was found. Parity wallets that were created after July 29 were frozen and hence inaccessible. According to Parity Technologies, a total of 573 wallets have been affected and the total balance is still unknown. This attack on Parity took place 5 months after another similar attack in July 2017. What is surprising is that Parity still has not audited the smart contract even after the first attack in July which is the usually the norm in the blockchain community. According to Motherboard, Parity, the digital wallet company knew about the flaw since August but did not address the issue. This causes a lot of concern about the irresponsible nature of the Parity team. The Parity platform is built on the Ethereum blockchain and this hack may cause the Ethereum foundation to lose its competence. The co founder of Ethereum, Vitalik Buterin, posted a tweet distancing himself from the Parity hack.",
+    "comments": []
+  },
+  {
+    "id": 2,
+    "user": "Robot",
+    "title": "Empty Post"
+  },
+  {
+    "id": 3,
+    "user": "Illoni Maskinen",
+    "rating": 1,
+    "title": "Neurotechnology, Elon Musk and the goal of human enhancement",
+    "content": "At the World Government Summit in Dubai in February, Tesla and SpaceX chief executive Elon Musk said that people would need to become cyborgs to be relevant in an artificial intelligence age. He said that a “merger of biological intelligence and machine intelligence” would be necessary to ensure we stay economically valuable. Soon afterwards, the serial entrepreneur created Neuralink, with the intention of connecting computers directly to human brains. He wants to do this using “neural lace” technology – implanting tiny electrodes into the brain for direct computing capabilities.",
+    "comments": [
+      {
+        "user": "Citizen Kane",
+        "comment": "Elon, when you will return the money to the government?"
+      },
+      {
+        "user": "Spaceman",
+        "comment": "And where is my rocket to Mars?"
+      }
+    ]
+  }
+]
