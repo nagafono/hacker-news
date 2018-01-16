@@ -6,8 +6,17 @@ import * as React from 'react';
  * @interface
  */
 export interface CommentProps {
-    user: string;
-    comment: string;
+  by: string;
+  text: string;
+}
+
+/**
+ * Markup HTML elements
+ * @param {string} text HTML string
+ * @returns {{__html: string}} HTML markup
+ */
+function markupHTML(text:string) {
+  return { __html: text };
 }
 
 /**
@@ -17,14 +26,12 @@ export interface CommentProps {
  * @constructor
  */
 export function Comment(props: CommentProps) {
-    return (
-        <div className="comment">
-            <em>
-                {props.user}
-            </em>
-            <p>
-                {props.comment}
-            </p>
-        </div>
-    );
+  return (
+    <div className="comment">
+      <em>
+        {props.by}
+      </em>
+      <p dangerouslySetInnerHTML={markupHTML(props.text)}/>
+    </div>
+  );
 }

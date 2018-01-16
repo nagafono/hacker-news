@@ -4,6 +4,7 @@
   "description": "React + TypeScript demonstration",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --hot",
     "build": "webpack --config ./webpack.config.js",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "pretest": "npm run lint",
@@ -43,7 +44,8 @@
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.4.2",
     "typescript": "^2.6.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0"
   },
   "jest": {
     "moduleFileExtensions": [

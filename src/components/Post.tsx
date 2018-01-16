@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as constants from '../constants';
 import { Comments } from './Comments';
 import { CommentProps } from './Comment';
 
@@ -8,11 +9,11 @@ import { CommentProps } from './Comment';
  * @interface
  */
 export interface PostProps {
-    user: string;
-    title: string;
-    content: string;
-    rating: number;
-    comments: CommentProps[];
+  by: string;
+  kids: number[];
+  score: number;
+  title: string;
+  url: string;
 }
 
 /**
@@ -22,21 +23,23 @@ export interface PostProps {
  * @constructor
  */
 export function Post(props: PostProps) {
-    return (
+  return (
         <article>
             <h2>
                 {props.title}
             </h2>
-            {props.rating ? (<h3>Rating: {props.rating}</h3>) : ''}
+            {props.score ? (<h3>Rating: {props.score}</h3>) : ''}
             <p>
-                {props.content}
+                <a href={props.url} target="_blank">
+                    {props.url}
+                </a>
             </p>
             <strong>
-                {props.user}
+                {props.by}
             </strong>
-            {(props.comments && props.comments.length)
-                ? (<Comments comments={props.comments}/>)
+            {(props.kids && props.kids.length)
+                ? (<Comments commentIds={props.kids.slice(0, constants.MAX_COMMENTS)}/>)
                 : ''}
         </article>
-    );
+  );
 }

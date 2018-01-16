@@ -5,10 +5,10 @@ import * as ReactDOM from 'react-dom';
 import { Posts } from './components/Posts';
 
 function App() {
-    return <Posts/>;
+  return <Posts/>;
 }
 
 ReactDOM.render(
-    <App />,
-    document.getElementById('news'),
+  <App />,
+  document.getElementById('news'),
 );

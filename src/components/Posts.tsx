@@ -1,33 +1,42 @@
 import * as React from 'react';
 import Async from 'react-promise';
+import * as constants from '../constants';
+import * as utils from '../utils';
 import { Post, PostProps } from './Post';
 
 /**
- * Interface with the properties which are expected to be received
- * for the Post section element
+ * Complete post interface
  *
  * @interface
  */
-interface PostsProps extends PostProps {
-    id: number;
+export interface PostsProps extends PostProps {
+  id: number;
+  descendants: number;
+  time: number;
+  type: string;
 }
 
 /**
- * Get JSON with Posts data
- * @returns {PostsProps[]} PostsProps interface with Posts data; empty array in the case of error
+ * Get best stories
+ * @returns {Promise<PostsProps[]>} Promise, which resolves best stories
+ * (length is limited with MAX_STORIES)
  */
-async function getJson() {
-    try {
-        // in general, url can be declared in the separate constants module
-        // but because of simplicity the declaration is left here
-        const url = '/hacker-news/data/Posts.json';
-        const response = await fetch(url);
-        return await response.json();
-    } catch (error) {
-        // can be also done with throw new Error() but without UI representation of the error
-        console.error(`ERROR: getJson() - ${error}`);
-        return [];
-    }
+async function getBestStories() {
+  const bestStoriesIds:number[] = await getBestStoriesIds();
+  return await Promise.all(
+      bestStoriesIds.map(
+          async (storyId): Promise<number> => await utils.getItem(storyId),
+      ),
+  );
+}
+
+/**
+ * Get best stories ids
+ * @returns {Promise<number[]>} Array with best stories ids (length is limited with MAX_STORIES)
+ */
+async function getBestStoriesIds() {
+  const bestStoriesIds:number[] = await utils.getJson(constants.BEST_STORIES_URL);
+  return bestStoriesIds.slice(0, constants.MAX_STORIES);
 }
 
 /**
@@ -36,7 +45,7 @@ async function getJson() {
  * @returns {Element[]} Set of JSX Post elements
  */
 function resolvePosts(posts:PostsProps[]) {
-    return insertPosts(sortPostsByRating(posts));
+  return insertPosts(sortPostsByRating(posts));
 }
 
 /**
@@ -46,15 +55,15 @@ function resolvePosts(posts:PostsProps[]) {
  * @private
  */
 function sortPostsByRating(posts:PostsProps[]) {
-    return posts.sort((current:PostsProps, next:PostsProps) => {
-        if (!current.rating) {
-            return next.rating;
-        }
-        if (!next.rating) {
-            return -current.rating;
-        }
-        return next.rating - current.rating;
-    });
+  return posts.sort((current:PostsProps, next:PostsProps) => {
+    if (!current.score) {
+      return next.score;
+    }
+    if (!next.score) {
+      return -current.score;
+    }
+    return next.score - current.score;
+  });
 }
 
 /**
@@ -63,24 +72,24 @@ function sortPostsByRating(posts:PostsProps[]) {
  * @returns {Element[]} Set of JSX Post elements
  */
 function insertPosts(posts:PostsProps[]) {
-    if (!posts || !posts.length) {
-        return (
-            <div className="error">
-                The data is empty or currently unavailable
-            </div>
-        );
+  if (!posts || !posts.length) {
+    return (
+      <div className="error">
+        The data is empty or currently unavailable
+      </div>
+    );
+  }
+  return posts.map((props:PostsProps) => {
+    if (!props.id && (props.id !== 0)) {
+      return '';
     }
-    return posts.map((props) => {
-        if (!props.id && (props.id !== 0)) {
-            return '';
-        }
-        return <Post key={props.id}
-                     user={props.user}
-                     title={props.title}
-                     content={props.content}
-                     rating={props.rating}
-                     comments={props.comments}/>;
-    });
+    return <Post key={props.id}
+                 by={props.by}
+                 title={props.title}
+                 url={props.url}
+                 score={props.score}
+                 kids={props.kids}/>;
+  });
 }
 
 /**
@@ -89,10 +98,10 @@ function insertPosts(posts:PostsProps[]) {
  * @constructor
  */
 export function Posts() {
-    return (
-        <section>
-            <Async promise={getJson()}
-                   then={resolvePosts}/>
-        </section>
-    );
+  return (
+    <section>
+        <Async promise={getBestStories()}
+               then={resolvePosts}/>
+    </section>
+  );
 }

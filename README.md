@@ -4,5 +4,5 @@ Run:
 ```
 npm install
 npm run build
+npm run start
  ```
-After that open index.html
