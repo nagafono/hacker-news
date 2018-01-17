@@ -34,7 +34,6 @@ module.exports = {
     path: __dirname + "/dist"
   },
   resolve: {
-    // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: [".ts", ".tsx", ".js", ".json", '.scss']
   },
 
