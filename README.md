@@ -1,4 +1,5 @@
-Demonstration of TypeScript + React usage
+Demonstration of TypeScript + React usage.
+The application shows top Hacker News stories using [Hacker News API](https://github.com/HackerNews/API) 
 
 Run:
 ```
