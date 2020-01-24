@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 
 import { Posts } from './components/Posts';
 
-function App() {
+function App(): JSX.Element {
   return <Posts/>;
 }
 

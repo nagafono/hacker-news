@@ -22,3 +22,7 @@ export async function getJson(url:string) {
     return [];
   }
 }
+
+export function markupHTML(text: string): { __html: string } {
+  return { __html: text };
+}
