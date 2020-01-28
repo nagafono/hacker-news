@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as utils from '../utils';
 
-export interface CommentProps {
+interface ICommentProps {
   by: string;
   text: string;
 }
 
-export function Comment(props: CommentProps) {
+export function Comment(props: ICommentProps) {
   return (
     <div className="comment">
       <em>{props.by}</em>

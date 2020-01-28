@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as constants from '../constants';
 import { Comments } from './Comments';
+import { getText } from '../localization';
 
-export interface PostProps {
+interface IPostProps {
   by: string;
   kids: number[];
   score: number;
@@ -10,11 +11,11 @@ export interface PostProps {
   url: string;
 }
 
-export function Post(props: PostProps): JSX.Element {
+export function Post(props: IPostProps): JSX.Element {
   return (
     <article>
       <h2>{props.title}</h2>
-      {props.score ? <h3>Rating: {props.score}</h3> : null }
+      {props.score ? <h3>{getText('rating')}: {props.score}</h3> : null }
       <p>
         <a href={props.url} target="_blank">{props.url}</a>
       </p>

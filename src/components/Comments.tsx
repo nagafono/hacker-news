@@ -1,22 +1,10 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import Async from 'react-promise';
-import { Comment, CommentProps } from './Comment';
+import { Comment } from './Comment';
 import * as utils from '../utils';
 import { ErrorMessage } from './ErrorMessage';
-
-/**
- * Complete comment interface
- *
- * @interface
- */
-export interface IComment extends CommentProps {
-  id: number;
-  kids: number[];
-  parent: number;
-  time: number;
-  type: string;
-}
+import { IComment } from '../interfaces';
+import { getText } from '../localization';
 
 interface ICommentsProps {
   commentIds: number[];
@@ -27,17 +15,17 @@ export function Comments(props: ICommentsProps): JSX.Element {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const loadBestStories = async () => {
+    const loadComments = async () => {
       try {
         setError('');
-        const comments: IComment[] = await _getComments(props.commentIds);
+        const comments: IComment[] = await _getComments(props.commentIds, setError);
         setComments(comments);
       } catch (e) {
-        setError(e.message);
+        utils.handleDefaultError(e, setError);
       }
     };
 
-    loadBestStories();
+    loadComments();
   }, []);
 
   if (error) {
@@ -46,7 +34,7 @@ export function Comments(props: ICommentsProps): JSX.Element {
 
   return (
     <footer>
-      <h3>Comments</h3>
+      <h3>{getText('comments')}</h3>
       {
         comments.map((props: IComment) => (
           <Comment
@@ -59,10 +47,18 @@ export function Comments(props: ICommentsProps): JSX.Element {
   );
 }
 
-async function _getComments(commentIds: number[]): Promise<IComment[]> {
-  return await Promise.all(commentIds.map(_getComment));
+async function _getComments(commentIds: number[], errorCb: any): Promise<IComment[]> {
+  try {
+    return await Promise.all(commentIds.map(_getComment));
+  } catch (e) {
+    utils.handleDefaultError(e, errorCb);
+  }
 }
 
 async function _getComment(commentId: number): Promise<IComment> {
-  return await utils.getItem(commentId);
+  try {
+    return await utils.getItem(commentId);
+  } catch (e) {
+    throw new Error(e);
+  }
 }

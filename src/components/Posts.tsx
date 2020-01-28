@@ -2,15 +2,10 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import * as constants from '../constants';
 import * as utils from '../utils';
-import { Post, PostProps } from './Post';
-import {ErrorMessage} from './ErrorMessage';
-
-export interface IPost extends PostProps {
-  id: number;
-  descendants: number;
-  time: number;
-  type: string;
-}
+import { Post } from './Post';
+import { ErrorMessage } from './ErrorMessage';
+import { IPost } from '../interfaces';
+import { getText } from '../localization';
 
 export function Posts(): JSX.Element {
   const [bestStories, setBestStories] = useState([]);
@@ -20,13 +15,13 @@ export function Posts(): JSX.Element {
     const loadBestStories = async () => {
       try {
         setError('');
-        const bestStories: IPost[] = await _getBestStories();
+        const bestStories: IPost[] = await _getBestStories(setError);
         if (!bestStories || !bestStories.length) {
-          throw new Error('The data is currently unavailable.');
+          throw new Error(getText('error_no_stories'));
         }
         setBestStories(_sortPostsByRating(bestStories));
       } catch (e) {
-        setError(e.message);
+        utils.handleDefaultError(e, setError);
       }
     };
 
@@ -54,18 +49,30 @@ export function Posts(): JSX.Element {
   );
 }
 
-async function _getBestStories(): Promise<IPost[]> {
-  const bestStoriesIds: number[] = await getBestStoriesIds();
-  return Promise.all(bestStoriesIds.map(_getBestStory));
+async function _getBestStories(errorCb: any): Promise<IPost[]> {
+  try {
+    const bestStoriesIds: number[] = await _getBestStoriesIds(errorCb);
+    return await Promise.all(bestStoriesIds.map(_getBestStory));
+  } catch (e) {
+    utils.handleDefaultError(e, errorCb);
+  }
 }
 
-async function getBestStoriesIds(): Promise<number[]>  {
-  const bestStoriesIds: number[] = await utils.getJson(constants.BEST_STORIES_URL);
-  return bestStoriesIds.slice(0, constants.MAX_STORIES);
+async function _getBestStoriesIds(errorCb: any): Promise<number[]>  {
+  try {
+    const bestStoriesIds: number[] = await utils.get(constants.BEST_STORIES_URL);
+    return bestStoriesIds.slice(0, constants.MAX_STORIES);
+  } catch (e) {
+    throw new Error(e);
+  }
 }
 
-async function _getBestStory(storyId: number): Promise<IPost> {
-  return await utils.getItem(storyId);
+async function _getBestStory(storyId: number, errorCb: any): Promise<IPost> {
+  try {
+    return await utils.getItem(storyId);
+  } catch (e) {
+    throw new Error(e);
+  }
 }
 
 function _sortPostsByRating(posts: IPost[]) {

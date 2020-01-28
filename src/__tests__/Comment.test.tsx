@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { Comment, CommentProps } from '../components/Comment';
+import { Comment } from '../components/Comment';
 import { ReactTestRendererJSON } from 'react-test-renderer';
 
 test('Comment component tests: Custom properties work', () => {
-  const testProps: CommentProps = {
+  const testProps = {
     by: 'John Doe',
     text: 'I am the test',
   };
